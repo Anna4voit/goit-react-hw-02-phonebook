@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 60px 20px;
+  height: 100vh;
+  background-image: linear-gradient(135deg, #05f5f9 0%, #fbb5ec 100%);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  font-size: 40px;
+  border-radius: 15px;
+  box-shadow: 0 1px 10px rgba(100, 99, 99, 0.3);
+  padding: 40px 20px;
+  width: 70vh;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 36px;
+  padding-bottom: 20px;
+}
+
+.boxContacts input {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  font-size: 30px;
+  border-radius: 10px;
+  margin: 0;
+}

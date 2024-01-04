@@ -2,56 +2,89 @@ import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { ContactList } from './ContactList/ContactList';
 import { ContactForm } from './ContactForm/ContactForm';
+import css from '../components/App.module.css';
 
 export class App extends Component {
   state = {
-    contacts: [{ id: 'id-1', name: 'Rosie Simpson' }],
+    contacts: [{ id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' }],
+    filter: '',
   };
-  // handleChange = event => {
-  //   const { name, value } = event.currentTarget;
-  //      this.setState({ [name]: value });
-  // };
-  // handleSubmit = event => {
-  //   event.preventDefault();
-  //   // console.log(this.state.name);
-  //   const contact = {
-  //     id: 'id-' + nanoid(),
-  //     name: this.state.name,
-  //   };
-  //   console.log(contact);
-  //   this.setState(prevState => ({
-  //     contacts: [...prevState.contacts, contact],
-  //   }));
-  //   console.log(this.state);
-  //   this.setState({ name: '' });
-  // };
-  addContact = name => {
+
+  isDublicateName(name) {
+    const normalizedName = name.toLowerCase();
+    const { contacts } = this.state;
+    const dublicateName = contacts.find(item => {
+      const normalizedCurrentName = item.name.toLowerCase();
+      return normalizedName === normalizedCurrentName;
+    });
+    return Boolean(dublicateName);
+  }
+
+  addContact = (name, number) => {
+    if (this.isDublicateName(name)) {
+      console.log(name);
+      return alert(`${name} is alredy in contacts`);
+    }
+
     const contact = {
       id: 'id-' + nanoid(),
       name,
+      number,
     };
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }));
-    this.setState({ name: '' });
   };
-  render() {
-    return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          color: '#010101',
-        }}
-      >
-        <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.addContact} />
 
-        <h2>Contacts</h2>
-        <ContactList contacts={this.state.contacts} />
+  deleteContact = id => {
+    this.setState(({ contacts }) => {
+      const newContact = contacts.filter(item => item.id !== id);
+      return { contacts: newContact };
+    });
+  };
+
+  changeFilter = event => {
+    this.setState({
+      filter: event.target.value,
+    });
+  };
+
+  getFilterContacts() {
+    const { filter, contacts } = this.state;
+    if (!filter) {
+      return contacts;
+    }
+
+    const normalizedFilter = filter.toLowerCase();
+    const filteredContacts = contacts.filter(({ name }) => {
+      const normalizedName = name.toLowerCase();
+      return normalizedName.includes(normalizedFilter);
+    });
+    return filteredContacts;
+  }
+
+  render() {
+    const contactsList = this.getFilterContacts();
+    const { addContact, changeFilter, deleteContact } = this;
+
+    return (
+      <div className={css.box}>
+        <div>
+          <h1 className={css.title}>Phonebook</h1>
+          <ContactForm onSubmit={addContact} />
+        </div>
+        <div className={css.boxContacts}>
+          <p>Find contacts by name</p>
+          <input
+            type="text"
+            name="filter"
+            value={this.state.filter}
+            onChange={changeFilter}
+            required
+          />
+          <h2 className={css.subtitle}>Contacts</h2>
+          <ContactList contacts={contactsList} deleteContact={deleteContact} />
+        </div>
       </div>
     );
   }
