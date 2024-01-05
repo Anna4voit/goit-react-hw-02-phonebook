@@ -23,8 +23,8 @@ p {
 .box {
   display: flex;
   flex-direction: column;
-  gap: 60px;
-  align-items: center;
+  gap: 20px;
+
   font-size: 40px;
   border-radius: 15px;
   box-shadow: 0 1px 10px rgba(100, 99, 99, 0.3);
@@ -34,22 +34,50 @@ p {
 }
 
 .title {
-  text-align: center;
   font-size: 40px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .subtitle {
-  text-align: center;
-  font-size: 36px;
-  padding-bottom: 20px;
+  font-size: 34px;
+  padding-bottom: 10px;
 }
 
-.boxContacts input {
+input {
   display: block;
-  width: 100%;
+  width: 200px;
   padding: 5px;
-  font-size: 30px;
+  font-size: 14px;
   border-radius: 10px;
+  border: 2px solid rgb(3, 3, 77);
   margin: 0;
+  outline: none;
+}
+
+input:hover,
+input:focus {
+  border: 2px solid rgb(9, 159, 234);
+}
+
+li,
+label {
+  font-size: 22px;
+}
+
+button {
+  width: 100px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  color: rgb(3, 3, 77);
+  box-shadow: 0 1px 10px rgba(100, 99, 99, 0.3);
+  background-color: rgb(240, 246, 246);
+}
+button:hover,
+button:focus {
+  background-color: rgb(3, 3, 77);
+  color: white;
+  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.3);
 }
